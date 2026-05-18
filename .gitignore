@@ -1,0 +1,43 @@
+# Maven
+.mvn/
+target/
+mvnw
+mvnw.cmd
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/package-lock.json
+frontend/*.log
+
+# Logs
+*.log
+backend-*.log
+frontend-*.log
+*.log.*
+
+# Test files
+bs_test.ps1
+bs_test_suite.py
+bs_test_report.md
+hatch-pet-runs/
+
+# Env files (don't commit secrets)
+.env.development
+.env.production
+
+# DB
+db/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+temp_code/

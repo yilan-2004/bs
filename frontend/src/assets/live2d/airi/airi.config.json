@@ -1,0 +1,37 @@
+{
+  "id": "airi-default",
+  "name": "AIRI 学习助教",
+  "modelType": "live2d",
+  "modelJsonPath": "/live2d/airi/model/airi.model3.json",
+  "layout": {
+    "width": 320,
+    "height": 420,
+    "scale": 0.28,
+    "x": 0,
+    "y": 0
+  },
+  "states": {
+    "idle": {
+      "motionGroup": "Idle",
+      "expression": "normal"
+    },
+    "thinking": {
+      "motionGroup": "Thinking",
+      "expression": "thinking"
+    },
+    "speaking": {
+      "motionGroup": "TapBody",
+      "expression": "happy"
+    },
+    "error": {
+      "motionGroup": "Error",
+      "expression": "sad"
+    }
+  },
+  "options": {
+    "autoBlink": true,
+    "autoBreath": true,
+    "followPointer": true,
+    "transparent": true
+  }
+}

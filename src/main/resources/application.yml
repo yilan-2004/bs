@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: agentedu-backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/agentedu?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+sa-token:
+  token-name: satoken
+  timeout: 86400
+  active-timeout: -1
+  is-concurrent: true
+  is-share: true
+  token-style: uuid
+  is-log: false
+
+judge:
+  python-command: python
+  timeout-seconds: 3
+  max-code-length: 51200
+  max-output-length: 10240
+  temp-dir: temp_code
+
+ai:
+  enabled: true
+  provider: deepseek
+  base-url: https://api.deepseek.com
+  model: deepseek-chat
