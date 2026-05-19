@@ -5,6 +5,8 @@ import cn.dev33.satoken.exception.NotPermissionException;
 import com.agentedu.common.Result;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -20,15 +22,17 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NotLoginException.class)
-    public Result<Void> handleNotLoginException(NotLoginException exception) {
+    public ResponseEntity<Result<Void>> handleNotLoginException(NotLoginException exception) {
         log.warn("Not login: {}", exception.getMessage());
-        return Result.fail(401, "未登录或登录状态已失效，请重新登录");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Result.fail(401, "未登录或登录状态已失效，请重新登录"));
     }
 
     @ExceptionHandler(NotPermissionException.class)
-    public Result<Void> handleNotPermissionException(NotPermissionException exception) {
+    public ResponseEntity<Result<Void>> handleNotPermissionException(NotPermissionException exception) {
         log.warn("No permission: {}", exception.getMessage());
-        return Result.fail(403, "无权限访问该资源");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Result.fail(403, "无权限访问该资源"));
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})

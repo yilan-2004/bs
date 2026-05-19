@@ -118,7 +118,10 @@ const roleText = computed(() => auth.role === 'TEACHER' ? '教师' : '学生')
 const displayName = computed(() => auth.userInfo?.realName || auth.userInfo?.username || '同学')
 const avatarText = computed(() => displayName.value.slice(0, 1).toUpperCase())
 const levelProgress = computed(() => Math.min(100, Number(auth.userInfo?.acceptedCount || 0) * 10 + 30))
-const showTopbar = computed(() => !(auth.role === 'STUDENT' && route.path === '/student/dashboard'))
+const showTopbar = computed(() => {
+  if (auth.role !== 'STUDENT') return true
+  return !['/student/dashboard', '/student/ai-tutor'].includes(route.path)
+})
 const activeMenu = computed(() => {
   const path = route.path
   if (path.startsWith('/student/bank')) return '/student/banks'

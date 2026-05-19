@@ -1,0 +1,47 @@
+{
+  "id": "airi-hiyori-stage",
+  "name": "AIRI 学习助教",
+  "model": {
+    "type": "live2d",
+    "modelJsonPath": "/live2d/hiyori_free_zh/runtime/hiyori_free_t08.model3.json",
+    "preview": "/live2d/hiyori_free_zh/avatar.png"
+  },
+  "layout": {
+    "width": 720,
+    "height": 900,
+    "scale": 0.235,
+    "x": 0,
+    "y": -8,
+    "anchorX": 0.5,
+    "anchorY": 1
+  },
+  "states": {
+    "idle": {
+      "motionGroup": "Idle",
+      "motionIndex": 0
+    },
+    "thinking": {
+      "motionGroup": "Flick",
+      "motionIndex": 0
+    },
+    "speaking": {
+      "motionGroup": "Tap",
+      "motionIndex": 0
+    },
+    "error": {
+      "motionGroup": "FlickDown",
+      "motionIndex": 0
+    }
+  },
+  "theme": {
+    "background": "#101415",
+    "panel": "#07313d",
+    "panelBorder": "#0b5a6b",
+    "accent": "#00a6c8"
+  },
+  "options": {
+    "transparent": true,
+    "followPointer": true,
+    "autoInteract": true
+  }
+}

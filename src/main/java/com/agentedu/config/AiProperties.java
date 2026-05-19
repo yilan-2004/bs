@@ -25,6 +25,11 @@ public class AiProperties {
     private String baseUrl = "https://api.deepseek.com";
 
     /**
+     * DeepSeek API Key。优先通过环境变量注入，避免把密钥明文提交到代码仓库。
+     */
+    private String apiKey;
+
+    /**
      * 模型名称。
      */
     private String model = "deepseek-chat";

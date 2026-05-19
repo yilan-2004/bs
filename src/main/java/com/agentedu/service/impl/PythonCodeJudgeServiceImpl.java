@@ -30,6 +30,9 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class PythonCodeJudgeServiceImpl implements CodeJudgeService {
 
+    /**
+     * Python 简化评测使用静态过滤和进程隔离，生产环境仍建议迁移到容器沙箱。
+     */
     private static final int ENABLED_STATUS = 1;
 
     private final TestCaseMapper testCaseMapper;

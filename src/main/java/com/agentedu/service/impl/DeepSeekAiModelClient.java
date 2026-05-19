@@ -25,6 +25,8 @@ public class DeepSeekAiModelClient implements AiModelClient {
 
     private static final String API_KEY_ENV = "AI_API_KEY";
 
+    private static final String DEEPSEEK_API_KEY_ENV = "DEEPSEEK_API_KEY";
+
     private final AiProperties aiProperties;
 
     private final PromptBuilder promptBuilder;
@@ -51,9 +53,9 @@ public class DeepSeekAiModelClient implements AiModelClient {
      */
     @Override
     public AgentFeedbackResult chat(CodeContext context) {
-        String apiKey = System.getenv(API_KEY_ENV);
+        String apiKey = resolveApiKey();
         if (!StringUtils.hasText(apiKey)) {
-            throw new BusinessException("AI 服务暂时不可用，请稍后重试");
+            throw new BusinessException("AI 服务暂时不可用，请先配置 DeepSeek API Key");
         }
 
         Map<String, Object> requestBody = Map.of(
@@ -98,6 +100,18 @@ public class DeepSeekAiModelClient implements AiModelClient {
             throw new IllegalArgumentException("DeepSeek response content is empty");
         }
         return contentNode.asText();
+    }
+
+    private String resolveApiKey() {
+        if (StringUtils.hasText(aiProperties.getApiKey())) {
+            return aiProperties.getApiKey().trim();
+        }
+        String deepSeekApiKey = System.getenv(DEEPSEEK_API_KEY_ENV);
+        if (StringUtils.hasText(deepSeekApiKey)) {
+            return deepSeekApiKey.trim();
+        }
+        String apiKey = System.getenv(API_KEY_ENV);
+        return StringUtils.hasText(apiKey) ? apiKey.trim() : "";
     }
 
     private AgentFeedbackResult parseFeedbackResult(String modelContent) throws JsonProcessingException {

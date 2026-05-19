@@ -37,4 +37,5 @@ ai:
   enabled: true
   provider: deepseek
   base-url: https://api.deepseek.com
+  api-key: ${DEEPSEEK_API_KEY:${AI_API_KEY:}}
   model: deepseek-chat

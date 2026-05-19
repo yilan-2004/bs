@@ -37,7 +37,8 @@ const routes = [
       { path: 'testcases', component: () => import('../views/teacher/TeacherTestCaseEntry.vue') },
       { path: 'testcases/:problemId', component: () => import('../views/teacher/TestCaseManage.vue') },
       { path: 'submits', component: () => import('../views/teacher/SubmitManage.vue') },
-      { path: 'analysis', component: () => import('../views/teacher/TeacherAnalysis.vue') }
+      { path: 'analysis', component: () => import('../views/teacher/TeacherAnalysis.vue') },
+      { path: 'knowledge-bases', component: () => import('../views/teacher/TeacherKnowledgeBases.vue') }
     ]
   }
 ]

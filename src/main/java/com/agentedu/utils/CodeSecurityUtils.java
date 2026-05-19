@@ -8,7 +8,7 @@ public final class CodeSecurityUtils {
 
     private static final List<Pattern> DANGEROUS_PATTERNS = List.of(
             Pattern.compile("(^|\\n)\\s*(from|import)\\s+(os|sys|io|subprocess|socket|requests|shutil|pathlib|ctypes|multiprocessing|threading|signal|resource|importlib|builtins|pickle|marshal|runpy|http|urllib|ftplib|telnetlib)\\b"),
-            Pattern.compile("\\b(__import__|eval|exec|open|compile|input\\s*\\(|globals\\s*\\(|locals\\s*\\(|vars\\s*\\(|dir\\s*\\(|getattr\\s*\\(|setattr\\s*\\(|delattr\\s*\\()"),
+            Pattern.compile("\\b(__import__|eval|exec|open|compile|globals\\s*\\(|locals\\s*\\(|vars\\s*\\(|dir\\s*\\(|getattr\\s*\\(|setattr\\s*\\(|delattr\\s*\\()"),
             Pattern.compile("\\b(os\\.|sys\\.|subprocess\\.|socket\\.|shutil\\.|pathlib\\.|ctypes\\.|importlib\\.)"),
             Pattern.compile("\\b(__class__|__bases__|__subclasses__|__globals__|__builtins__|__dict__|__mro__)\\b")
     );
@@ -21,7 +21,7 @@ public final class CodeSecurityUtils {
     }
 
     /**
-     * 返回命中的危险模式。第一版仍是静态过滤，不能替代真正容器沙盒。
+     * 返回命中的危险模式。当前仍是静态过滤，不能替代真正的容器沙箱。
      */
     public static String findDangerousKeyword(String code) {
         if (code == null) {
