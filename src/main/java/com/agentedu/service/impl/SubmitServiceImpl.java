@@ -287,7 +287,7 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
         SubmitRecord record = new SubmitRecord();
         record.setUserId(StpUtil.getLoginIdAsLong());
         record.setProblemId(problemId);
-        record.setLanguage("python");
+        record.setLanguage(normalizeLanguage(dto.getLanguage()));
         record.setCode(dto.getCode());
         record.setJudgeStatus(JudgeStatusEnum.JUDGING.name());
         record.setPassCount(0);
@@ -583,9 +583,18 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
     }
 
     private void checkLanguage(String language) {
-        if (!"python".equalsIgnoreCase(language)) {
-            throw new BusinessException("当前仅支持python代码提交");
+        String normalized = normalizeLanguage(language);
+        if (!"python".equals(normalized) && !"java".equals(normalized)) {
+            throw new BusinessException("当前仅支持 Python 或 Java 代码提交");
         }
+    }
+
+    private String normalizeLanguage(String language) {
+        if (!StringUtils.hasText(language)) {
+            return "python";
+        }
+        String normalized = language.trim().toLowerCase();
+        return "py".equals(normalized) ? "python" : normalized;
     }
 
     private void checkCode(String code) {

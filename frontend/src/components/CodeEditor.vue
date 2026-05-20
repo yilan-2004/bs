@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="editor-panel">
     <header class="editor-topbar">
       <div class="editor-title-block">
@@ -48,7 +48,11 @@ const emit = defineEmits(['update:modelValue', 'submit', 'reset'])
 const containerRef = ref(null)
 let editor
 
-const languageLabel = computed(() => props.language === 'python' ? 'Python' : props.language)
+const languageLabel = computed(() => {
+  if (props.language === 'python') return 'Python'
+  if (props.language === 'java') return 'Java'
+  return props.language
+})
 
 onMounted(async () => {
   const monaco = await loader.init()

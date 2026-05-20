@@ -13,6 +13,13 @@ public final class CodeSecurityUtils {
             Pattern.compile("\\b(__class__|__bases__|__subclasses__|__globals__|__builtins__|__dict__|__mro__)\\b")
     );
 
+    private static final List<Pattern> DANGEROUS_JAVA_PATTERNS = List.of(
+            Pattern.compile("\\b(processbuilder|runtime\\s*\\.|system\\.exit\\s*\\(|classloader|securitymanager)\\b"),
+            Pattern.compile("\\b(java\\.net|java\\.nio\\.file|javax\\.net|processhandle|thread\\s*\\(|executorservice|executors\\.)\\b"),
+            Pattern.compile("\\b(reflect|setaccessible\\s*\\(|getdeclaredmethod\\s*\\(|getdeclaredfield\\s*\\()\\b"),
+            Pattern.compile("\\b(fileinputstream|fileoutputstream|randomaccessfile|files\\.|paths\\.)\\b")
+    );
+
     private CodeSecurityUtils() {
     }
 
@@ -36,6 +43,19 @@ public final class CodeSecurityUtils {
         return null;
     }
 
+    public static String findDangerousJavaKeyword(String code) {
+        if (code == null) {
+            return null;
+        }
+        String normalized = stripJavaComments(code).toLowerCase(Locale.ROOT);
+        for (Pattern pattern : DANGEROUS_JAVA_PATTERNS) {
+            if (pattern.matcher(normalized).find()) {
+                return pattern.pattern();
+            }
+        }
+        return null;
+    }
+
     private static String stripComments(String code) {
         StringBuilder builder = new StringBuilder();
         for (String line : code.split("\\R", -1)) {
@@ -43,5 +63,11 @@ public final class CodeSecurityUtils {
             builder.append(index >= 0 ? line.substring(0, index) : line).append('\n');
         }
         return builder.toString();
+    }
+
+    private static String stripJavaComments(String code) {
+        return code
+                .replaceAll("(?s)/\\*.*?\\*/", "")
+                .replaceAll("(?m)//.*$", "");
     }
 }

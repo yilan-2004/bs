@@ -11,6 +11,10 @@ public class JudgeProperties {
 
     private String pythonCommand = "python";
 
+    private String javacCommand = "javac";
+
+    private String javaCommand = "java";
+
     private Long timeoutSeconds = 3L;
 
     private Integer maxCodeLength = 51200;

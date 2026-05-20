@@ -28,6 +28,8 @@ sa-token:
 
 judge:
   python-command: python
+  javac-command: javac
+  java-command: java
   timeout-seconds: 3
   max-code-length: 51200
   max-output-length: 10240

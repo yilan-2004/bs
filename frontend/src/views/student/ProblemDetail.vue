@@ -45,19 +45,28 @@
       </aside>
 
       <main class="coding-panel">
-        <CodeEditor
-          v-if="isProgramming"
-          v-model="code"
-          title="Python 代码编辑器"
-          height="580px"
-          show-submit
-          show-reset
-          :loading="submitting"
-          submit-text="提交代码"
-          loading-text="评测中..."
-          @submit="handleSubmit"
-          @reset="resetCode"
-        />
+        <template v-if="isProgramming">
+          <div class="language-switch">
+            <span>提交语言</span>
+            <el-radio-group v-model="codeLanguage" size="small" @change="handleLanguageChange">
+              <el-radio-button label="python">Python</el-radio-button>
+              <el-radio-button label="java">Java</el-radio-button>
+            </el-radio-group>
+          </div>
+          <CodeEditor
+            v-model="code"
+            :language="codeLanguage"
+            :title="editorTitle"
+            height="580px"
+            show-submit
+            show-reset
+            :loading="submitting"
+            submit-text="提交代码"
+            loading-text="评测中..."
+            @submit="handleSubmit"
+            @reset="resetCode"
+          />
+        </template>
 
         <section v-else-if="isChoice" class="answer-panel">
           <div class="answer-header">
@@ -102,7 +111,12 @@
               {{ submitting ? 'AI 批改中...' : '提交批改' }}
             </el-button>
           </div>
-          <el-input v-model="shortAnswer" type="textarea" :rows="12" placeholder="请输入简答题答案，建议写出核心概念、原因说明和必要例子。" />
+          <el-input
+            v-model="shortAnswer"
+            type="textarea"
+            :rows="12"
+            placeholder="请输入简答题答案，建议写出核心概念、原因说明和必要例子。"
+          />
         </section>
 
         <section v-else class="answer-panel">
@@ -152,8 +166,13 @@ const problem = ref(null)
 const samples = ref([])
 const judgeResult = ref(null)
 const feedback = ref(null)
-const defaultCode = 'a, b = map(int, input().split())\nprint(a + b)'
-const code = ref(defaultCode)
+
+const codeTemplates = {
+  python: 'a, b = map(int, input().split())\nprint(a + b)',
+  java: 'import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        int a = scanner.nextInt();\n        int b = scanner.nextInt();\n        System.out.println(a + b);\n    }\n}'
+}
+const codeLanguage = ref('python')
+const code = ref(codeTemplates.python)
 const choiceAnswer = ref('')
 const fillAnswer = ref('')
 const shortAnswer = ref('')
@@ -165,6 +184,7 @@ const isProgramming = computed(() => questionType.value === 'PROGRAMMING')
 const isChoice = computed(() => questionType.value === 'CHOICE')
 const isFillBlank = computed(() => questionType.value === 'FILL_BLANK')
 const isShortAnswer = computed(() => questionType.value === 'SHORT_ANSWER')
+const editorTitle = computed(() => codeLanguage.value === 'java' ? 'Java 代码编辑器' : 'Python 代码编辑器')
 const questionTypeText = computed(() => ({
   PROGRAMMING: '编程题',
   CHOICE: '选择题',
@@ -197,7 +217,11 @@ async function loadProblem() {
 }
 
 function resetCode() {
-  code.value = defaultCode
+  code.value = codeTemplates[codeLanguage.value] || codeTemplates.python
+}
+
+function handleLanguageChange(language) {
+  code.value = codeTemplates[language] || codeTemplates.python
 }
 
 async function handleSubmit() {
@@ -208,7 +232,7 @@ async function handleSubmit() {
     if (isProgramming.value) {
       judgeResult.value = await submitApi.submitCode({
         problemId: Number(route.params.id),
-        language: 'python',
+        language: codeLanguage.value,
         code: code.value
       })
     } else {
@@ -273,31 +297,34 @@ onMounted(loadProblem)
   box-shadow: 0 16px 42px rgba(15, 23, 42, 0.07);
 }
 
-.problem-toolbar {
+.problem-toolbar,
+.problem-title-row,
+.answer-header,
+.ai-action-card,
+.language-switch {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
 }
 
-.bank-pill {
-  max-width: 220px;
+.bank-pill,
+.meta-pill,
+.difficulty {
   padding: 7px 12px;
-  overflow: hidden;
   border-radius: 999px;
-  color: #1d4ed8;
-  background: #dbeafe;
   font-size: 12px;
   font-weight: 900;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+}
+
+.bank-pill,
+.meta-pill {
+  color: #1d4ed8;
+  background: #dbeafe;
 }
 
 .problem-title-row {
-  display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
   margin: 14px 0 12px;
 }
 
@@ -314,23 +341,6 @@ onMounted(loadProblem)
   flex-wrap: wrap;
   gap: 8px;
   margin: -4px 0 12px;
-}
-
-.meta-pill {
-  padding: 6px 10px;
-  border-radius: 999px;
-  color: #2563eb;
-  background: #eff6ff;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.difficulty {
-  flex: 0 0 auto;
-  padding: 7px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 900;
 }
 
 .problem-section {
@@ -375,6 +385,14 @@ onMounted(loadProblem)
   min-width: 0;
 }
 
+.language-switch {
+  justify-content: flex-end;
+  margin-bottom: 12px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 900;
+}
+
 .answer-panel {
   min-height: 420px;
   padding: 24px;
@@ -385,22 +403,26 @@ onMounted(loadProblem)
 }
 
 .answer-header {
-  display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 18px;
   margin-bottom: 22px;
 }
 
-.answer-header h2 {
+.answer-header h2,
+.answer-panel > h2,
+.ai-action-card h3 {
   margin: 0;
   color: #111827;
-  font-size: 22px;
   font-weight: 900;
 }
 
+.answer-header h2,
+.answer-panel > h2 {
+  font-size: 22px;
+}
+
 .answer-header p,
-.answer-panel > p {
+.answer-panel > p,
+.ai-action-card p {
   margin: 8px 0 0;
   color: #64748b;
   line-height: 1.7;
@@ -451,10 +473,6 @@ onMounted(loadProblem)
 }
 
 .ai-action-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
   padding: 22px;
   border: 1px solid rgba(124, 58, 237, 0.18);
   border-radius: 22px;
@@ -462,10 +480,6 @@ onMounted(loadProblem)
     radial-gradient(circle at 94% 0%, rgba(124, 58, 237, 0.12), transparent 30%),
     linear-gradient(135deg, #fff, #eff6ff);
   box-shadow: 0 18px 42px rgba(124, 58, 237, 0.10);
-}
-
-.ai-action-copy {
-  min-width: 0;
 }
 
 .ai-action-kicker {
@@ -476,17 +490,10 @@ onMounted(loadProblem)
   text-transform: uppercase;
 }
 
-.ai-action-card h3 {
-  margin: 5px 0 0;
-  color: #111827;
-  font-size: 20px;
-  font-weight: 900;
-}
-
-.ai-action-card p {
-  margin: 8px 0 0;
-  color: #64748b;
-  line-height: 1.7;
+.ai-button {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
 }
 
 @media (max-width: 1100px) {
@@ -499,12 +506,9 @@ onMounted(loadProblem)
     max-height: none;
   }
 
-  .ai-action-card {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
+  .ai-action-card,
   .answer-header {
+    align-items: flex-start;
     flex-direction: column;
   }
 }
