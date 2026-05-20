@@ -3,7 +3,9 @@ package com.agentedu.enums;
 public enum QuestionTypeEnum {
     PROGRAMMING,
     CHOICE,
+    MULTI_CHOICE,
     FILL_BLANK,
+    TRUE_FALSE,
     SHORT_ANSWER;
 
     public static boolean isValid(String value) {

@@ -6,7 +6,7 @@
           <el-icon><Reading /></el-icon>
         </span>
         <div>
-          <strong>{{ auth.role === 'TEACHER' ? 'AgentEdu 教学台' : 'AgentEdu' }}</strong>
+          <strong>{{ auth.role === 'TEACHER' ? 'AgentEdu 教学管理' : 'AgentEdu' }}</strong>
           <span>{{ auth.role === 'TEACHER' ? '高校编程教学工作台' : '多学科个性化学习平台' }}</span>
         </div>
       </div>
@@ -106,6 +106,7 @@ const teacherGroups = [
       { path: '/teacher/banks', label: '题库管理', icon: Collection },
       { path: '/teacher/problems', label: '题目管理', icon: Notebook },
       { path: '/teacher/testcases', label: '测试用例', icon: List },
+      { path: '/teacher/students', label: '学生统计', icon: User },
       { path: '/teacher/submits', label: '提交记录', icon: Document },
       { path: '/teacher/analysis', label: '教学分析', icon: DataAnalysis },
       { path: '/teacher/knowledge-bases', label: '知识库', icon: Files }
@@ -128,6 +129,8 @@ const activeMenu = computed(() => {
   if (path.startsWith('/student/problem')) return '/student/banks'
   if (path.startsWith('/teacher/testcases')) return '/teacher/testcases'
   if (path.startsWith('/teacher/problem/')) return '/teacher/problems'
+  if (path.startsWith('/teacher/students')) return '/teacher/students'
+  if (path.startsWith('/teacher/submissions')) return '/teacher/submits'
   if (path.startsWith('/teacher/knowledge')) return '/teacher/knowledge-bases'
   return path
 })

@@ -1,5 +1,5 @@
 <template>
-  <div class="page page-stack">
+  <div class="page page-stack submit-manage-page">
     <PageHeader
       title="提交记录"
       subtitle="查看学生提交、评测状态、AI 反馈和缓存命中情况"
@@ -7,8 +7,8 @@
       :icon="Document"
     />
 
-    <div class="toolbar submit-toolbar">
-      <el-select v-model="filterBankId" clearable placeholder="题库筛选">
+    <section class="surface-card submit-toolbar">
+      <el-select v-model="filterBankId" clearable placeholder="题库筛选" @change="handleBankChange">
         <el-option v-for="bank in banks" :key="bank.id" :label="bank.name" :value="bank.id" />
       </el-select>
       <el-select v-model="query.problemId" clearable placeholder="题目筛选">
@@ -21,27 +21,36 @@
         <el-option label="Runtime Error" value="RUNTIME_ERROR" />
         <el-option label="Compile Error" value="COMPILE_ERROR" />
         <el-option label="Time Limit" value="TIME_LIMIT_EXCEEDED" />
+        <el-option label="Partial Accepted" value="PARTIAL_ACCEPTED" />
       </el-select>
       <el-select v-model="localFilter.ai" clearable placeholder="AI反馈">
-        <el-option label="需要诊断" value="need" />
-        <el-option label="无需诊断" value="none" />
+        <el-option label="已有反馈" value="has" />
+        <el-option label="暂无反馈" value="none" />
       </el-select>
       <el-select v-model="localFilter.cache" clearable placeholder="缓存命中">
         <el-option label="命中" value="hit" />
         <el-option label="未命中" value="miss" />
       </el-select>
-      <el-button type="primary" :icon="Search" :loading="loading" @click="loadSubmits">查询</el-button>
-    </div>
+      <el-date-picker
+        v-model="dateRange"
+        type="daterange"
+        range-separator="至"
+        start-placeholder="开始时间"
+        end-placeholder="结束时间"
+        value-format="YYYY-MM-DD HH:mm:ss"
+      />
+      <el-button type="primary" :icon="Search" :loading="loading" @click="search">查询</el-button>
+    </section>
 
     <section class="surface-card">
-      <el-table v-loading="loading" :data="displayRecords" size="large">
-        <el-table-column prop="username" label="学生" width="130">
-          <template #default="{ row }">{{ row.username || row.userId }}</template>
+      <el-table v-loading="loading" :data="records" size="large">
+        <el-table-column label="学生" width="150">
+          <template #default="{ row }">{{ row.studentName || row.username || row.userId }}</template>
         </el-table-column>
         <el-table-column label="题库" min-width="160">
-          <template #default="{ row }">{{ bankName(row.problemId) }}</template>
+          <template #default="{ row }">{{ row.bankName || bankName(row.problemId) }}</template>
         </el-table-column>
-        <el-table-column label="题目" min-width="200">
+        <el-table-column label="题目" min-width="220">
           <template #default="{ row }">{{ row.problemTitle || problemMap[row.problemId]?.title || row.problemId }}</template>
         </el-table-column>
         <el-table-column prop="judgeStatus" label="状态" width="170">
@@ -71,7 +80,7 @@
           </template>
         </el-table-column>
         <template #empty>
-          <EmptyState title="暂无提交记录" description="学生提交代码后会在这里展示评测结果" :icon="Document" />
+          <EmptyState title="暂无提交记录" description="学生提交后会在这里展示评测结果。" :icon="Document" />
         </template>
       </el-table>
 
@@ -80,8 +89,10 @@
           v-model:current-page="query.pageNum"
           v-model:page-size="query.pageSize"
           background
-          layout="total, prev, pager, next"
+          layout="total, sizes, prev, pager, next"
+          :page-sizes="[10, 20, 50, 100]"
           :total="total"
+          @size-change="search"
           @current-change="loadSubmits"
         />
       </div>
@@ -101,7 +112,7 @@
 
     <el-dialog v-model="feedbackVisible" title="AI反馈详情" width="920px">
       <AiFeedbackCard v-if="feedback" :feedback="feedback" />
-      <EmptyState v-else title="暂无AI反馈" description="学生生成AI诊断后，教师可在这里查看" :icon="Document" />
+      <EmptyState v-else title="暂无AI反馈" description="学生生成AI诊断后，教师可在这里查看。" :icon="Document" />
     </el-dialog>
   </div>
 </template>
@@ -127,7 +138,8 @@ const records = ref([])
 const total = ref(0)
 const problems = ref([])
 const banks = ref([])
-const filterBankId = ref('')
+const filterBankId = ref(route.query.bankId ? Number(route.query.bankId) : '')
+const dateRange = ref([])
 const detailVisible = ref(false)
 const feedbackVisible = ref(false)
 const detail = ref(null)
@@ -136,7 +148,7 @@ const query = reactive({
   pageNum: 1,
   pageSize: 10,
   problemId: route.query.problemId ? Number(route.query.problemId) : '',
-  userId: '',
+  userId: route.query.studentId ? Number(route.query.studentId) : '',
   judgeStatus: ''
 })
 const localFilter = reactive({ ai: '', cache: '' })
@@ -147,26 +159,30 @@ const filteredProblems = computed(() => {
   if (!filterBankId.value) return problems.value
   return problems.value.filter(item => item.bankId === filterBankId.value)
 })
-const displayRecords = computed(() => records.value.filter(item => {
-  const problem = problemMap.value[item.problemId]
-  if (filterBankId.value && problem?.bankId !== filterBankId.value) return false
-  if (localFilter.ai === 'need' && !item.needAiFeedback) return false
-  if (localFilter.ai === 'none' && item.needAiFeedback) return false
-  const cacheHit = item.fromCache || item.cacheHit
-  if (localFilter.cache === 'hit' && !cacheHit) return false
-  if (localFilter.cache === 'miss' && cacheHit) return false
-  return true
-}))
 
 function bankName(problemId) {
   const problem = problemMap.value[problemId]
   return bankMap.value[problem?.bankId]?.name || problem?.bankName || '-'
 }
 
+function buildParams() {
+  const params = { ...query }
+  if (filterBankId.value) params.bankId = filterBankId.value
+  if (localFilter.ai === 'has') params.hasAiFeedback = true
+  if (localFilter.ai === 'none') params.hasAiFeedback = false
+  if (localFilter.cache === 'hit') params.fromCache = true
+  if (localFilter.cache === 'miss') params.fromCache = false
+  if (dateRange.value?.length === 2) {
+    params.startTime = dateRange.value[0]
+    params.endTime = dateRange.value[1]
+  }
+  return Object.fromEntries(Object.entries(params).filter(([, value]) => value !== '' && value !== undefined && value !== null))
+}
+
 async function loadOptions() {
   const [problemData, bankData] = await Promise.all([
-    problemApi.list({ pageNum: 1, pageSize: 100 }),
-    problemBankApi.list({ pageNum: 1, pageSize: 100 })
+    problemApi.list({ pageNum: 1, pageSize: 500 }),
+    problemBankApi.list({ pageNum: 1, pageSize: 500 })
   ])
   problems.value = problemData.records || []
   banks.value = bankData.records || []
@@ -175,15 +191,22 @@ async function loadOptions() {
 async function loadSubmits() {
   loading.value = true
   try {
-    const params = { ...query }
-    if (!params.problemId) delete params.problemId
-    if (!params.userId) delete params.userId
-    if (!params.judgeStatus) delete params.judgeStatus
-    const data = await submitApi.list(params)
+    const data = await submitApi.list(buildParams())
     records.value = data.records || []
     total.value = data.total || 0
   } finally {
     loading.value = false
+  }
+}
+
+function search() {
+  query.pageNum = 1
+  loadSubmits()
+}
+
+function handleBankChange() {
+  if (query.problemId && !filteredProblems.value.some(item => item.id === query.problemId)) {
+    query.problemId = ''
   }
 }
 
@@ -202,11 +225,7 @@ async function openFeedback(row) {
   }
 }
 
-watch(filterBankId, () => {
-  if (query.problemId && !filteredProblems.value.some(item => item.id === query.problemId)) {
-    query.problemId = ''
-  }
-})
+watch(filterBankId, handleBankChange)
 
 onMounted(() => {
   loadOptions()
@@ -215,9 +234,23 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.submit-manage-page {
+  padding: 24px;
+}
+
 .submit-toolbar {
   display: grid;
-  grid-template-columns: 180px 220px 120px 180px 140px 140px auto;
+  grid-template-columns: 170px 210px 120px 160px 130px 130px 260px auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.surface-card {
+  padding: 18px;
+  border: 1px solid #e5eaf2;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.06);
 }
 
 .pager {
@@ -240,7 +273,18 @@ onMounted(() => {
   font-weight: 800;
 }
 
-@media (max-width: 1100px) {
+.mono-block {
+  max-height: 360px;
+  padding: 16px;
+  overflow: auto;
+  border-radius: 14px;
+  color: #dbeafe;
+  background: #0f172a;
+  font-family: Consolas, "JetBrains Mono", monospace;
+  line-height: 1.7;
+}
+
+@media (max-width: 1280px) {
   .submit-toolbar {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

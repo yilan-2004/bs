@@ -13,6 +13,7 @@ import com.agentedu.entity.Problem;
 import com.agentedu.entity.ProblemBank;
 import com.agentedu.entity.SubmitCaseResult;
 import com.agentedu.entity.SubmitRecord;
+import com.agentedu.entity.User;
 import com.agentedu.enums.JudgeStatusEnum;
 import com.agentedu.enums.QuestionTypeEnum;
 import com.agentedu.exception.BusinessException;
@@ -21,6 +22,7 @@ import com.agentedu.mapper.ProblemBankMapper;
 import com.agentedu.mapper.ProblemMapper;
 import com.agentedu.mapper.SubmitCaseResultMapper;
 import com.agentedu.mapper.SubmitRecordMapper;
+import com.agentedu.mapper.UserMapper;
 import com.agentedu.service.ChoiceEvaluateService;
 import com.agentedu.service.CodeJudgeService;
 import com.agentedu.service.FillBlankEvaluateService;
@@ -67,6 +69,8 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
     private final SubmitCaseResultMapper submitCaseResultMapper;
 
     private final AiFeedbackMapper aiFeedbackMapper;
+
+    private final UserMapper userMapper;
 
     private final AiCacheService aiCacheService;
 
@@ -140,7 +144,9 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
             return submitCode(codeDTO);
         }
         if (!QuestionTypeEnum.CHOICE.name().equals(questionType)
+                && !QuestionTypeEnum.MULTI_CHOICE.name().equals(questionType)
                 && !QuestionTypeEnum.FILL_BLANK.name().equals(questionType)
+                && !QuestionTypeEnum.TRUE_FALSE.name().equals(questionType)
                 && !QuestionTypeEnum.SHORT_ANSWER.name().equals(questionType)) {
             throw new BusinessException("当前题型暂不支持作答评测");
         }
@@ -150,9 +156,14 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
         if (QuestionTypeEnum.SHORT_ANSWER.name().equals(questionType)) {
             return evaluateShortAnswer(problem, record, dto.getAnswerContent());
         }
-        JudgeResult judgeResult = QuestionTypeEnum.CHOICE.name().equals(questionType)
-                ? choiceEvaluateService.evaluate(problem, dto.getAnswerContent())
-                : fillBlankEvaluateService.evaluate(problem, dto.getAnswerContent());
+        JudgeResult judgeResult;
+        if (QuestionTypeEnum.CHOICE.name().equals(questionType)) {
+            judgeResult = choiceEvaluateService.evaluate(problem, dto.getAnswerContent());
+        } else if (QuestionTypeEnum.MULTI_CHOICE.name().equals(questionType)) {
+            judgeResult = choiceEvaluateService.evaluateMultiChoice(problem, dto.getAnswerContent());
+        } else {
+            judgeResult = fillBlankEvaluateService.evaluate(problem, dto.getAnswerContent());
+        }
         saveCaseResults(record.getId(), judgeResult.getTestCaseResults());
         updateSubmitRecord(record, judgeResult);
         log.info("Answer evaluated submitId={}, userId={}, problemId={}, questionType={}, judgeStatus={}, errorFingerprint={}",
@@ -268,6 +279,22 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
             throw new BusinessException("无权查看该题目的提交记录");
         }
 
+        if (queryDTO.getBankId() != null) {
+            List<Long> bankProblemIds = problemMapper.selectList(new LambdaQueryWrapper<Problem>()
+                            .eq(Problem::getCreatorId, StpUtil.getLoginIdAsLong())
+                            .eq(Problem::getBankId, queryDTO.getBankId()))
+                    .stream()
+                    .map(Problem::getId)
+                    .toList();
+            if (bankProblemIds.isEmpty()) {
+                return new PageResult<>(0L, 0L, List.of());
+            }
+            ownProblemIds = ownProblemIds.stream().filter(bankProblemIds::contains).toList();
+            if (ownProblemIds.isEmpty()) {
+                return new PageResult<>(0L, 0L, List.of());
+            }
+        }
+
         LambdaQueryWrapper<SubmitRecord> wrapper = new LambdaQueryWrapper<>();
         if (queryDTO.getProblemId() != null) {
             wrapper.eq(SubmitRecord::getProblemId, queryDTO.getProblemId());
@@ -276,6 +303,18 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
         }
         wrapper.eq(queryDTO.getUserId() != null, SubmitRecord::getUserId, queryDTO.getUserId());
         wrapper.eq(StringUtils.hasText(queryDTO.getJudgeStatus()), SubmitRecord::getJudgeStatus, queryDTO.getJudgeStatus());
+        wrapper.ge(queryDTO.getStartTime() != null, SubmitRecord::getCreateTime, queryDTO.getStartTime());
+        wrapper.le(queryDTO.getEndTime() != null, SubmitRecord::getCreateTime, queryDTO.getEndTime());
+        if (Boolean.TRUE.equals(queryDTO.getHasAiFeedback())) {
+            wrapper.exists("select 1 from ai_feedback af where af.submit_id = submit_record.id");
+        } else if (Boolean.FALSE.equals(queryDTO.getHasAiFeedback())) {
+            wrapper.notExists("select 1 from ai_feedback af where af.submit_id = submit_record.id");
+        }
+        if (Boolean.TRUE.equals(queryDTO.getFromCache())) {
+            wrapper.exists("select 1 from ai_feedback af where af.submit_id = submit_record.id and af.from_cache = 1");
+        } else if (Boolean.FALSE.equals(queryDTO.getFromCache())) {
+            wrapper.notExists("select 1 from ai_feedback af where af.submit_id = submit_record.id and af.from_cache = 1");
+        }
         wrapper.orderByDesc(SubmitRecord::getCreateTime);
 
         Page<SubmitRecord> page = page(new Page<>(queryDTO.getPageNum(), queryDTO.getPageSize()), wrapper);
@@ -607,6 +646,12 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
     }
 
     private void normalizeQuery(SubmitQueryDTO queryDTO) {
+        if (queryDTO.getPage() != null) {
+            queryDTO.setPageNum(queryDTO.getPage());
+        }
+        if (queryDTO.getStudentId() != null && queryDTO.getUserId() == null) {
+            queryDTO.setUserId(queryDTO.getStudentId());
+        }
         if (queryDTO.getPageNum() == null || queryDTO.getPageNum() < 1) {
             queryDTO.setPageNum(1L);
         }
@@ -648,6 +693,7 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
     }
 
     private void fillSubmitDisplayFields(SubmitRecordVO vo, SubmitRecord record) {
+        fillStudentDisplayFields(vo, record.getUserId());
         Problem problem = problemMapper.selectById(record.getProblemId());
         if (problem != null) {
             vo.setProblemTitle(problem.getTitle());
@@ -660,6 +706,7 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
     }
 
     private void fillSubmitDisplayFields(SubmitDetailVO vo, SubmitRecord record) {
+        fillStudentDisplayFields(vo, record.getUserId());
         Problem problem = problemMapper.selectById(record.getProblemId());
         if (problem != null) {
             vo.setProblemTitle(problem.getTitle());
@@ -669,6 +716,41 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
         boolean fromCache = hasCacheFeedback(record.getId());
         vo.setFromCache(fromCache);
         vo.setCacheHit(fromCache);
+    }
+
+    private void fillStudentDisplayFields(SubmitRecordVO vo, Long userId) {
+        if (userId == null) {
+            return;
+        }
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            return;
+        }
+        vo.setUsername(user.getUsername());
+        vo.setStudentName(maskName(user.getRealName()));
+    }
+
+    private void fillStudentDisplayFields(SubmitDetailVO vo, Long userId) {
+        if (userId == null) {
+            return;
+        }
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            return;
+        }
+        vo.setUsername(user.getUsername());
+        vo.setStudentName(maskName(user.getRealName()));
+    }
+
+    private String maskName(String realName) {
+        if (!StringUtils.hasText(realName)) {
+            return null;
+        }
+        String value = realName.trim();
+        if (value.length() <= 1) {
+            return value;
+        }
+        return value.substring(0, 1) + "*";
     }
 
     private boolean hasCacheFeedback(Long submitId) {

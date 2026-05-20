@@ -91,6 +91,9 @@ public class JavaCodeJudgeServiceImpl implements CodeJudgeService {
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(
                     judgeProperties.getJavacCommand(),
+                    "-J-Duser.language=en",
+                    "-J-Duser.country=US",
+                    "-J-Dfile.encoding=UTF-8",
                     "-encoding", "UTF-8",
                     "-d", tempDir.toAbsolutePath().toString(),
                     codeFile.toAbsolutePath().toString());
@@ -107,7 +110,7 @@ public class JavaCodeJudgeServiceImpl implements CodeJudgeService {
             String stdout = ProcessUtils.readLimited(process.getInputStream(), judgeProperties.getMaxOutputLength());
             String stderr = ProcessUtils.readLimited(process.getErrorStream(), judgeProperties.getMaxOutputLength());
             result.setActualOutput(stdout);
-            result.setErrorOutput(stderr);
+            result.setErrorOutput(normalizeErrorMessage(stderr));
             if (process.exitValue() != 0) {
                 result.setJudgeStatus(JudgeStatusEnum.COMPILE_ERROR.name());
                 result.setPassFlag(0);
@@ -191,6 +194,8 @@ public class JavaCodeJudgeServiceImpl implements CodeJudgeService {
                     judgeProperties.getJavaCommand(),
                     "-Xmx128m",
                     "-Dfile.encoding=UTF-8",
+                    "-Duser.language=en",
+                    "-Duser.country=US",
                     "-cp", tempDir.toAbsolutePath().toString(),
                     MAIN_CLASS_NAME);
             process = processBuilder.start();
@@ -211,7 +216,7 @@ public class JavaCodeJudgeServiceImpl implements CodeJudgeService {
             String stdout = ProcessUtils.readLimited(process.getInputStream(), judgeProperties.getMaxOutputLength());
             String stderr = ProcessUtils.readLimited(process.getErrorStream(), judgeProperties.getMaxOutputLength());
             result.setActualOutput(stdout);
-            result.setErrorOutput(stderr);
+            result.setErrorOutput(normalizeErrorMessage(stderr));
             fillStatusByOutput(result, testCase, stderr, stdout, process.exitValue());
             return result;
         } catch (Exception exception) {

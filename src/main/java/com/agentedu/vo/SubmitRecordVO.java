@@ -11,6 +11,10 @@ public class SubmitRecordVO {
 
     private Long userId;
 
+    private String username;
+
+    private String studentName;
+
     private Long problemId;
 
     private String problemTitle;

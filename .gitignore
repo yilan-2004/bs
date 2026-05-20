@@ -12,6 +12,7 @@ frontend/*.log
 
 # Logs
 *.log
+*.err
 backend-*.log
 frontend-*.log
 *.log.*
@@ -21,6 +22,8 @@ bs_test.ps1
 bs_test_suite.py
 bs_test_report.md
 hatch-pet-runs/
+tmp_exam_import/
+tmp_exam_import_text_py/
 
 # Env files (don't commit secrets)
 .env.development

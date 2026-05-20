@@ -3,6 +3,7 @@ package com.agentedu.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
@@ -36,7 +37,11 @@ public final class ProcessUtils {
                 total += copyLength;
             }
         }
-        String text = output.toString(StandardCharsets.UTF_8);
+        byte[] bytes = output.toByteArray();
+        String text = new String(bytes, StandardCharsets.UTF_8);
+        if (text.indexOf('\uFFFD') >= 0) {
+            text = new String(bytes, Charset.defaultCharset());
+        }
         return total >= limit && limit > 0 ? text + "\n[output truncated]" : text;
     }
 }

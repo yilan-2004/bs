@@ -1,0 +1,859 @@
+{
+  "bankId": "b_bank_id",
+  "bankName": "面向对象程序设计 B卷题库",
+  "subjectId": "oo_java",
+  "subjectName": "面向对象程序设计 / Java",
+  "source": "2024-2025-2《面向对象程序设计》考试试卷与参考答案",
+  "total": 34,
+  "questions": [
+    {
+      "id": "B-CHOICE-01",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 1,
+      "questionType": "CHOICE",
+      "content": "在JDK的bin目录下有许多exe可执行文件，其中java.exe命令的作用是（ ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "Java文档制作工具",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "Java解释器",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "Java编译器",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "Java启动器",
+          "correct": true
+        }
+      ],
+      "answer": "D",
+      "score": 2,
+      "knowledgePoint": "JDK工具",
+      "test_case": []
+    },
+    {
+      "id": "B-CHOICE-02",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 2,
+      "questionType": "CHOICE",
+      "content": "下面那种类型的文件可以在Java虚拟机中运行？（ ）",
+      "options": [
+        {
+          "key": "A",
+          "content": ".java",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": ".jre",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": ".exe",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": ".class",
+          "correct": true
+        }
+      ],
+      "answer": "D",
+      "score": 2,
+      "knowledgePoint": "JVM与字节码",
+      "test_case": []
+    },
+    {
+      "id": "B-CHOICE-03",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 3,
+      "questionType": "CHOICE",
+      "content": "下列选项中，那些属于合法的标识符？（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "username",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "class",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "123username",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "Hello World",
+          "correct": false
+        }
+      ],
+      "answer": "A",
+      "score": 2,
+      "knowledgePoint": "标识符",
+      "test_case": []
+    },
+    {
+      "id": "B-CHOICE-04",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 4,
+      "questionType": "CHOICE",
+      "content": "下列选项中，使用比较运算符正确的是（ ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "4!=3结果为false",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "4==3 结果为false",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "4<=3结果为true",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "4>=3结果为true",
+          "correct": false
+        }
+      ],
+      "answer": "B",
+      "score": 2,
+      "knowledgePoint": "比较运算符",
+      "test_case": []
+    },
+    {
+      "id": "B-CHOICE-05",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 5,
+      "questionType": "CHOICE",
+      "content": "下列关于构造方法的描述中，错误的是（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "构造方法的方法名必须和类名一致",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "构造方法不能写返回值类型",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "构造方法可以重载",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "构造方法的访问权限必须和类的访问权限一致",
+          "correct": true
+        }
+      ],
+      "answer": "D",
+      "score": 2,
+      "knowledgePoint": "构造方法",
+      "test_case": []
+    },
+    {
+      "id": "B-CHOICE-06",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 6,
+      "questionType": "CHOICE",
+      "content": "现有两个类A、B，以下描述中表示B继承自A的是（）",
+      "options": [
+        {
+          "key": "A",
+          "content": "class A extends",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "class",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "class B implements A",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "class A implements B",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "class B extends A",
+          "correct": true
+        }
+      ],
+      "answer": "D",
+      "score": 2,
+      "knowledgePoint": "继承",
+      "test_case": []
+    },
+    {
+      "id": "B-CHOICE-07",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 7,
+      "questionType": "CHOICE",
+      "content": "下列选项中，可以正确实现String初始化的是（ ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "String str = \"abc\"",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "String str = 'abc'",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "String str = abc",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "String str = 0",
+          "correct": false
+        }
+      ],
+      "answer": "A",
+      "score": 2,
+      "knowledgePoint": "String",
+      "test_case": []
+    },
+    {
+      "id": "B-CHOICE-08",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 8,
+      "questionType": "CHOICE",
+      "content": "使用Iterator时，判断是否存在下一个元素可以使用以下哪个方法（   ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "next()",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "hash()",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "hasPrevious()",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "hasNext()",
+          "correct": false
+        }
+      ],
+      "answer": "A",
+      "score": 2,
+      "knowledgePoint": "集合与迭代器",
+      "test_case": []
+    },
+    {
+      "id": "B-CHOICE-09",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 9,
+      "questionType": "CHOICE",
+      "content": "在Java中，下面哪个关键字用于捕获异常（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "catch",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "throw",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "throws",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "try",
+          "correct": false
+        }
+      ],
+      "answer": "A",
+      "score": 2,
+      "knowledgePoint": "异常处理",
+      "test_case": []
+    },
+    {
+      "id": "B-CHOICE-10",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "单项选择题",
+      "number": 10,
+      "questionType": "CHOICE",
+      "content": "File类中以字符串形式返回文件绝对路径的方法是哪一项？（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "getParent()",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "getName()",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "getAbsolutePath()",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "getPath()",
+          "correct": false
+        }
+      ],
+      "answer": "C",
+      "score": 2,
+      "knowledgePoint": "File类",
+      "test_case": []
+    },
+    {
+      "id": "B-MULTI-01",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "多项选择题",
+      "number": 1,
+      "questionType": "MULTI_CHOICE",
+      "content": "Java语言的特点有哪些？",
+      "options": [
+        {
+          "key": "A",
+          "content": "简单性",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "面向对象",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "跨平台性",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "支持多线程",
+          "correct": true
+        }
+      ],
+      "answer": "ABCD",
+      "score": 2,
+      "knowledgePoint": "Java语言基础",
+      "test_case": []
+    },
+    {
+      "id": "B-MULTI-02",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "多项选择题",
+      "number": 2,
+      "questionType": "MULTI_CHOICE",
+      "content": "在Java中，下面哪些关键字用于定义循环结构？",
+      "options": [
+        {
+          "key": "A",
+          "content": "For",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "while",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "do-while",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "switch",
+          "correct": false
+        }
+      ],
+      "answer": "ABC",
+      "score": 2,
+      "knowledgePoint": "循环结构",
+      "test_case": []
+    },
+    {
+      "id": "B-MULTI-03",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "多项选择题",
+      "number": 3,
+      "questionType": "MULTI_CHOICE",
+      "content": "面向对象的三个特性是？",
+      "options": [
+        {
+          "key": "A",
+          "content": "封装性",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "继承性",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "抽象性",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "多态性",
+          "correct": true
+        }
+      ],
+      "answer": "ABD",
+      "score": 2,
+      "knowledgePoint": "面向对象特征",
+      "test_case": []
+    },
+    {
+      "id": "B-MULTI-04",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "多项选择题",
+      "number": 4,
+      "questionType": "MULTI_CHOICE",
+      "content": "有A、B、C三个类，以下继承关系正确的是？",
+      "options": [
+        {
+          "key": "A",
+          "content": "class A{}\nclass B{}\nclass C extends A,B{}",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "class A{}\nclass B extends A{}\nclass C extends B{}",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "class A{}\nclass B extends A{}\nclass C extends A{}",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "class A{}\nclass B,C extends A{}",
+          "correct": false
+        }
+      ],
+      "answer": "BC",
+      "score": 2,
+      "knowledgePoint": "继承",
+      "test_case": []
+    },
+    {
+      "id": "B-MULTI-05",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "多项选择题",
+      "number": 5,
+      "questionType": "MULTI_CHOICE",
+      "content": "以下属于Map接口集合常用方法的有？",
+      "options": [
+        {
+          "key": "A",
+          "content": "boolean containsKey(Object key)",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "Collection values()",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "void forEach(BiConsumer action)",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "boolean replace(Object key, Object value)",
+          "correct": true
+        }
+      ],
+      "answer": "ABCD",
+      "score": 2,
+      "knowledgePoint": "Map集合",
+      "test_case": []
+    },
+    {
+      "id": "B-FILL-01",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "填空题",
+      "number": 1,
+      "questionType": "FILL_BLANK",
+      "content": "JDK中，存放可执行程序的目录是________。",
+      "options": [],
+      "answer": "bin目录",
+      "score": 2,
+      "knowledgePoint": "JDK目录",
+      "test_case": []
+    },
+    {
+      "id": "B-FILL-02",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "填空题",
+      "number": 2,
+      "questionType": "FILL_BLANK",
+      "content": "Java程序代码必须放在一个类中，类使用________关键词定义。",
+      "options": [],
+      "answer": "class",
+      "score": 2,
+      "knowledgePoint": "类定义",
+      "test_case": []
+    },
+    {
+      "id": "B-FILL-03",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "填空题",
+      "number": 3,
+      "questionType": "FILL_BLANK",
+      "content": "静态方法必须使用________关键字来修饰。",
+      "options": [],
+      "answer": "static",
+      "score": 2,
+      "knowledgePoint": "static关键字",
+      "test_case": []
+    },
+    {
+      "id": "B-FILL-04",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "填空题",
+      "number": 4,
+      "questionType": "FILL_BLANK",
+      "content": "在继承关系中，子类会自动继承父类中的方法，但有时在子类中需要对继承的方法进行一些修改，即对父类的方法进行________。",
+      "options": [],
+      "answer": "重写",
+      "score": 2,
+      "knowledgePoint": "方法重写",
+      "test_case": []
+    },
+    {
+      "id": "B-FILL-05",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "填空题",
+      "number": 5,
+      "questionType": "FILL_BLANK",
+      "content": "在程序中，获取字符串长度的方法是________。",
+      "options": [],
+      "answer": "length()",
+      "score": 2,
+      "knowledgePoint": "String",
+      "test_case": []
+    },
+    {
+      "id": "B-TF-01",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "判断题",
+      "number": 1,
+      "questionType": "TRUE_FALSE",
+      "content": "编译Java程序需要使用 java 命令。",
+      "options": [],
+      "answer": "×",
+      "score": 2,
+      "knowledgePoint": "JDK工具",
+      "test_case": []
+    },
+    {
+      "id": "B-TF-02",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "判断题",
+      "number": 2,
+      "questionType": "TRUE_FALSE",
+      "content": "在成员方法中出现的 this 关键字，代表的是调用这个方法的对象。",
+      "options": [],
+      "answer": "×",
+      "score": 2,
+      "knowledgePoint": "this关键字",
+      "test_case": []
+    },
+    {
+      "id": "B-TF-03",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "判断题",
+      "number": 3,
+      "questionType": "TRUE_FALSE",
+      "content": "Exception类称为异常类，它表示程序本身可以处理的错误，在开发Java程序中进行的异常处理，都是针对Exception类及其子类。",
+      "options": [],
+      "answer": "√",
+      "score": 2,
+      "knowledgePoint": "异常处理",
+      "test_case": []
+    },
+    {
+      "id": "B-TF-04",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "判断题",
+      "number": 4,
+      "questionType": "TRUE_FALSE",
+      "content": "Pattern类用于创建一个正则表达式，也可以说创建一个匹配模式，它的构造方法是私有的，不可以直接创建。",
+      "options": [],
+      "answer": "√",
+      "score": 2,
+      "knowledgePoint": "正则表达式",
+      "test_case": []
+    },
+    {
+      "id": "B-TF-05",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "判断题",
+      "number": 5,
+      "questionType": "TRUE_FALSE",
+      "content": "Set集合是通过键值对的方式来存储对象的。",
+      "options": [],
+      "answer": "×",
+      "score": 2,
+      "knowledgePoint": "集合",
+      "test_case": []
+    },
+    {
+      "id": "B-OUTPUT-01",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "读程序写结果题",
+      "number": 1,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序并写出运行结果：\npublic static void main(String[] args){\n    int[] arr = {23,544,56,1,23,45,21,1,78};\n    int m = arr[0];\n    for (int i = 1; i < arr.length; i++) {\n        if(m < arr[i]){\n            m = arr[i];\n        }\n    }\n    System.out.println(m);\n}",
+      "options": [],
+      "answer": "544",
+      "score": 3,
+      "knowledgePoint": "数组",
+      "test_case": []
+    },
+    {
+      "id": "B-OUTPUT-02",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "读程序写结果题",
+      "number": 2,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序并写出运行结果：\npublic class getSum {\n    public static void main(String[] args) {\n        int sum = 0;\n        for (int i = 1; i < 100; i++) {\n            if (i % 2 != 0)\n                sum += i;\n        }\n        System.out.println(sum);\n    }\n}",
+      "options": [],
+      "answer": "2500",
+      "score": 3,
+      "knowledgePoint": "循环",
+      "test_case": []
+    },
+    {
+      "id": "B-OUTPUT-03",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "读程序写结果题",
+      "number": 3,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序并写出运行结果：\nclass Test {\n    private static String name;\n    static {\n        name = \"World\";\n        System.out.print(name);\n    }\n    public static void main(String[] args) {\n        System.out.print(\"Hello\");\n        Test test = new Test();\n    }\n}",
+      "options": [],
+      "answer": "WorldHello",
+      "score": 3,
+      "knowledgePoint": "静态代码块",
+      "test_case": []
+    },
+    {
+      "id": "B-OUTPUT-04",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "读程序写结果题",
+      "number": 4,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序并写出运行结果：\nclass Calculator {\n    int add(int a, int b) { return a + b; }\n}\nclass ScientificCalculator extends Calculator {\n    int multiply(int a, int b) { return a * b; }\n}\npublic class TestCalc {\n    public static void main(String[] args) {\n        ScientificCalculator sc = new ScientificCalculator();\n        System.out.println(sc.add(5, 3));\n        System.out.println(sc.multiply(5, 3));\n    }\n}",
+      "options": [],
+      "answer": "8,15",
+      "score": 3,
+      "knowledgePoint": "继承",
+      "test_case": []
+    },
+    {
+      "id": "B-OUTPUT-05",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "读程序写结果题",
+      "number": 5,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序并写出运行结果：\npublic class Example {\n    public static void main(String[] args) {\n        int x;\n        try {\n            x = div(1, 2);\n            System.out.println(x);\n        } catch (ArithmeticException e) {\n            System.out.println(e);\n        }\n    }\n    public static int div(int a, int b) { return a / b; }\n}",
+      "options": [],
+      "answer": "0",
+      "score": 3,
+      "knowledgePoint": "整数除法与异常",
+      "test_case": []
+    },
+    {
+      "id": "B-FILLPROG-01",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "程序填空题",
+      "number": 1,
+      "questionType": "FILL_BLANK",
+      "content": "程序填空：定义一个抽象类 People，具有私有属性 name 和抽象方法 printInfo()；定义继承自 People 的 Teacher 类，具有私有属性 skill，重写 printInfo() 方法；在 Test 类中测试 Teacher 对象。请填写①②③。\nPublic ① void printInfo();\npublic class Teacher ② People { ... }\npublic class Test { public static void main(String[] args) { ③; t.printInfo(); } }",
+      "options": [],
+      "answer": [
+        "abstract",
+        "extends",
+        "People t = new Teacher(\"张三\", \"java,C\"); 或 Teacher t = new Teacher(\"张三\", \"java,C\");"
+      ],
+      "score": 10,
+      "knowledgePoint": "抽象类与继承",
+      "test_case": []
+    },
+    {
+      "id": "B-FILLPROG-02",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "程序填空题",
+      "number": 2,
+      "questionType": "FILL_BLANK",
+      "content": "程序填空：下面是一个用 ArrayList 集合存储字符串元素的程序，请填写④⑤。\nfor (int i = 0; i < ④; i++) { System.out.println(list.get(i)); }\nfor (⑤ : list){ System.out.println(s); }",
+      "options": [],
+      "answer": [
+        "list.size()",
+        "String s"
+      ],
+      "score": 10,
+      "knowledgePoint": "ArrayList遍历",
+      "test_case": []
+    },
+    {
+      "id": "B-PROG-01",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "编程题",
+      "number": 1,
+      "questionType": "PROGRAMMING",
+      "content": "请编写程序，实现获取数组 {22,24,76,12,21,33} 的最大数。请使用 Java 编写，主类名为 Main。",
+      "options": [],
+      "answer": "参考实现应定义数组并遍历求最大值，输出 max=76。",
+      "score": 5,
+      "knowledgePoint": "数组与方法",
+      "test_case": [
+        {
+          "input": "",
+          "expectedOutput": "max=76",
+          "isSample": 1
+        }
+      ]
+    },
+    {
+      "id": "B-PROG-02",
+      "bankId": "b_bank_id",
+      "subjectId": "oo_java",
+      "paper": "B卷",
+      "section": "编程题",
+      "number": 2,
+      "questionType": "PROGRAMMING",
+      "content": "定义一个 USB 接口，并通过 Mouse 和 U盘类实现它。接口 USB 包括两个抽象方法：void work() 和 void stop()。Mouse 的 work 输出“我点点点”，stop 输出“我不能点了”；UPan 的 work 输出“我存存存”，stop 输出“我走了”。Main 中定义 USB 变量 usb1 存放鼠标对象并调用 work、stop；定义 USB 数组 usbs，第0个元素存放 UPan 对象，第1个元素存放 Mouse 对象，循环数组调用每个元素的 work 和 stop。",
+      "options": [],
+      "answer": "参考实现应定义 USB 接口、Mouse 类、UPan 类和 Main 测试类，并按样例输出。",
+      "score": 10,
+      "knowledgePoint": "接口与多态",
+      "test_case": [
+        {
+          "input": "",
+          "expectedOutput": "我点点点\n我不能点了\n我存存存\n我走了\n我点点点\n我不能点了",
+          "isSample": 1
+        }
+      ]
+    }
+  ]
+}

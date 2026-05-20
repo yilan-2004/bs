@@ -36,7 +36,10 @@ const routes = [
       { path: 'problem/:id/edit', component: () => import('../views/teacher/ProblemEdit.vue') },
       { path: 'testcases', component: () => import('../views/teacher/TeacherTestCaseEntry.vue') },
       { path: 'testcases/:problemId', component: () => import('../views/teacher/TestCaseManage.vue') },
+      { path: 'students', component: () => import('../views/teacher/TeacherStudents.vue') },
+      { path: 'students/:studentId', component: () => import('../views/teacher/TeacherStudentDetail.vue') },
       { path: 'submits', component: () => import('../views/teacher/SubmitManage.vue') },
+      { path: 'submissions', component: () => import('../views/teacher/SubmitManage.vue') },
       { path: 'analysis', component: () => import('../views/teacher/TeacherAnalysis.vue') },
       { path: 'knowledge-bases', component: () => import('../views/teacher/TeacherKnowledgeBases.vue') }
     ]

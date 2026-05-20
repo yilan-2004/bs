@@ -88,6 +88,52 @@
           </el-radio-group>
         </section>
 
+        <section v-else-if="isMultiChoice" class="answer-panel">
+          <div class="answer-header">
+            <div>
+              <h2>多选题作答</h2>
+              <p>请选择所有你认为正确的选项。系统会按选项集合进行判分，顺序不影响结果。</p>
+            </div>
+            <el-button type="primary" size="large" :loading="submitting" :disabled="submitting || multiChoiceAnswer.length === 0" @click="handleSubmit">
+              {{ submitting ? '评测中...' : '提交答案' }}
+            </el-button>
+          </div>
+          <el-checkbox-group v-model="multiChoiceAnswer" class="choice-list">
+            <label v-for="option in problem.options || []" :key="option.id || option.optionKey" class="choice-card">
+              <el-checkbox :label="option.optionKey">
+                <strong>{{ option.optionKey }}</strong>
+                <span>{{ option.optionContent }}</span>
+              </el-checkbox>
+            </label>
+          </el-checkbox-group>
+        </section>
+
+        <section v-else-if="isTrueFalse" class="answer-panel">
+          <div class="answer-header">
+            <div>
+              <h2>判断题作答</h2>
+              <p>请选择“正确”或“错误”，提交后系统会立即评测。</p>
+            </div>
+            <el-button type="primary" size="large" :loading="submitting" :disabled="submitting || !trueFalseAnswer" @click="handleSubmit">
+              {{ submitting ? '评测中...' : '提交答案' }}
+            </el-button>
+          </div>
+          <el-radio-group v-model="trueFalseAnswer" class="choice-list true-false-list">
+            <label class="choice-card">
+              <el-radio label="√">
+                <strong>√</strong>
+                <span>正确</span>
+              </el-radio>
+            </label>
+            <label class="choice-card">
+              <el-radio label="×">
+                <strong>×</strong>
+                <span>错误</span>
+              </el-radio>
+            </label>
+          </el-radio-group>
+        </section>
+
         <section v-else-if="isFillBlank" class="answer-panel">
           <div class="answer-header">
             <div>
@@ -174,6 +220,8 @@ const codeTemplates = {
 const codeLanguage = ref('python')
 const code = ref(codeTemplates.python)
 const choiceAnswer = ref('')
+const multiChoiceAnswer = ref([])
+const trueFalseAnswer = ref('')
 const fillAnswer = ref('')
 const shortAnswer = ref('')
 
@@ -182,6 +230,8 @@ const showAiAction = computed(() => judgeResult.value && judgeResult.value.judge
 const questionType = computed(() => problem.value?.questionType || 'PROGRAMMING')
 const isProgramming = computed(() => questionType.value === 'PROGRAMMING')
 const isChoice = computed(() => questionType.value === 'CHOICE')
+const isMultiChoice = computed(() => questionType.value === 'MULTI_CHOICE')
+const isTrueFalse = computed(() => questionType.value === 'TRUE_FALSE')
 const isFillBlank = computed(() => questionType.value === 'FILL_BLANK')
 const isShortAnswer = computed(() => questionType.value === 'SHORT_ANSWER')
 const editorTitle = computed(() => codeLanguage.value === 'java' ? 'Java 代码编辑器' : 'Python 代码编辑器')
@@ -253,6 +303,8 @@ async function handleSubmit() {
 
 function getAnswerContent() {
   if (isChoice.value) return choiceAnswer.value
+  if (isMultiChoice.value) return multiChoiceAnswer.value.join('')
+  if (isTrueFalse.value) return trueFalseAnswer.value
   if (isFillBlank.value) return fillAnswer.value
   if (isShortAnswer.value) return shortAnswer.value
   return ''

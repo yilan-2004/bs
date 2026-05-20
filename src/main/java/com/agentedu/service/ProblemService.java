@@ -272,7 +272,7 @@ public class ProblemService extends ServiceImpl<ProblemMapper, Problem> {
 
     private void checkQuestionType(String questionType) {
         if (StringUtils.hasText(questionType) && !QuestionTypeEnum.isValid(questionType)) {
-            throw new BusinessException("Question type must be PROGRAMMING, CHOICE, FILL_BLANK, or SHORT_ANSWER");
+            throw new BusinessException("Question type must be PROGRAMMING, CHOICE, MULTI_CHOICE, FILL_BLANK, TRUE_FALSE, or SHORT_ANSWER");
         }
     }
 
@@ -315,15 +315,19 @@ public class ProblemService extends ServiceImpl<ProblemMapper, Problem> {
     }
 
     private void validateQuestionContent(String questionType, String standardAnswer, List<QuestionOptionDTO> options) {
-        if (QuestionTypeEnum.CHOICE.name().equals(questionType)) {
+        if (QuestionTypeEnum.CHOICE.name().equals(questionType)
+                || QuestionTypeEnum.MULTI_CHOICE.name().equals(questionType)) {
             if (options == null || options.size() < 2) {
                 throw new BusinessException("选择题至少需要2个选项");
             }
             long correctCount = options.stream()
                     .filter(item -> Integer.valueOf(1).equals(item.getIsCorrect()))
                     .count();
-            if (correctCount != 1) {
-                throw new BusinessException("第一版选择题仅支持单选，必须且只能设置1个正确选项");
+            if (QuestionTypeEnum.CHOICE.name().equals(questionType) && correctCount != 1) {
+                throw new BusinessException("单选题必须且只能设置1个正确选项");
+            }
+            if (QuestionTypeEnum.MULTI_CHOICE.name().equals(questionType) && correctCount < 1) {
+                throw new BusinessException("多选题至少需要设置1个正确选项");
             }
             for (QuestionOptionDTO option : options) {
                 if (!StringUtils.hasText(option.getOptionKey()) || !StringUtils.hasText(option.getOptionContent())) {
@@ -331,7 +335,8 @@ public class ProblemService extends ServiceImpl<ProblemMapper, Problem> {
                 }
             }
         }
-        if (QuestionTypeEnum.FILL_BLANK.name().equals(questionType)
+        if ((QuestionTypeEnum.FILL_BLANK.name().equals(questionType)
+                || QuestionTypeEnum.TRUE_FALSE.name().equals(questionType))
                 && !StringUtils.hasText(standardAnswer)) {
             throw new BusinessException("填空题标准答案不能为空");
         }
@@ -343,6 +348,7 @@ public class ProblemService extends ServiceImpl<ProblemMapper, Problem> {
 
     private String normalizeStandardAnswerForSave(String questionType, String standardAnswer) {
         return QuestionTypeEnum.FILL_BLANK.name().equals(questionType)
+                || QuestionTypeEnum.TRUE_FALSE.name().equals(questionType)
                 || QuestionTypeEnum.SHORT_ANSWER.name().equals(questionType) ? standardAnswer : null;
     }
 
@@ -364,7 +370,8 @@ public class ProblemService extends ServiceImpl<ProblemMapper, Problem> {
     }
 
     private void saveChoiceOptions(Long problemId, String questionType, List<QuestionOptionDTO> options) {
-        if (!QuestionTypeEnum.CHOICE.name().equals(questionType)) {
+        if (!QuestionTypeEnum.CHOICE.name().equals(questionType)
+                && !QuestionTypeEnum.MULTI_CHOICE.name().equals(questionType)) {
             return;
         }
         for (int i = 0; i < options.size(); i++) {

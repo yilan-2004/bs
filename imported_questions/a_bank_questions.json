@@ -1,0 +1,847 @@
+{
+  "bankId": "a_bank_id",
+  "bankName": "面向对象程序设计 A卷题库",
+  "subjectId": "oo_java",
+  "subjectName": "面向对象程序设计 / Java",
+  "source": "2024-2025-2《面向对象程序设计》考试试卷与参考答案",
+  "total": 34,
+  "questions": [
+    {
+      "id": "A-CHOICE-01",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 1,
+      "questionType": "CHOICE",
+      "content": "Java属于那种语言？（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "机器语言",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "汇编语言",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "面向过程语言",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "面向对象语言",
+          "correct": true
+        }
+      ],
+      "answer": "D",
+      "score": 2,
+      "knowledgePoint": "Java语言基础",
+      "test_case": []
+    },
+    {
+      "id": "A-CHOICE-02",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 2,
+      "questionType": "CHOICE",
+      "content": "下面4种类型的文件中（  ）可以在Java虚拟机中运行。",
+      "options": [
+        {
+          "key": "A",
+          "content": ".java",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": ".jre",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": ".exe",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": ".class",
+          "correct": true
+        }
+      ],
+      "answer": "D",
+      "score": 2,
+      "knowledgePoint": "JVM与字节码",
+      "test_case": []
+    },
+    {
+      "id": "A-CHOICE-03",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 3,
+      "questionType": "CHOICE",
+      "content": "下面哪个选项是Java的有效标识符（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "123abc",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "_variable",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "#number",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "class",
+          "correct": false
+        }
+      ],
+      "answer": "B",
+      "score": 2,
+      "knowledgePoint": "标识符",
+      "test_case": []
+    },
+    {
+      "id": "A-CHOICE-04",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 4,
+      "questionType": "CHOICE",
+      "content": "下列选项中，不属于基本数据类型的是（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "string",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "short",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "boolean",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "char",
+          "correct": false
+        }
+      ],
+      "answer": "A",
+      "score": 2,
+      "knowledgePoint": "基本数据类型",
+      "test_case": []
+    },
+    {
+      "id": "A-CHOICE-05",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 5,
+      "questionType": "CHOICE",
+      "content": "下列类的定义中不正确的是（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "class X{ ... }",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "class X extends Y { ... }",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "static class X imlements Y1，Y2 { ... }",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "public class X extends Applet { ... }",
+          "correct": false
+        }
+      ],
+      "answer": "C",
+      "score": 2,
+      "knowledgePoint": "类定义",
+      "test_case": []
+    },
+    {
+      "id": "A-CHOICE-06",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 6,
+      "questionType": "CHOICE",
+      "content": "对于声明为private、protected以及public的类成员在类外部（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "只能访问声明为public的类成员",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "只能访问声明为protected和public的类成员",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "都可以访问",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "都不能访问",
+          "correct": false
+        }
+      ],
+      "answer": "A",
+      "score": 2,
+      "knowledgePoint": "访问控制",
+      "test_case": []
+    },
+    {
+      "id": "A-CHOICE-07",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 7,
+      "questionType": "CHOICE",
+      "content": "Java中的哪个关键字用于实现接口（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "implements",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "extends",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "inherits",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "interface",
+          "correct": false
+        }
+      ],
+      "answer": "A",
+      "score": 2,
+      "knowledgePoint": "接口",
+      "test_case": []
+    },
+    {
+      "id": "A-CHOICE-08",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 8,
+      "questionType": "CHOICE",
+      "content": "String s=\"itcast\"，则s.substring(3,4)返回的字符串是以下选项中的哪个（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "ca",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "c",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "a",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "as",
+          "correct": false
+        }
+      ],
+      "answer": "C",
+      "score": 2,
+      "knowledgePoint": "String",
+      "test_case": []
+    },
+    {
+      "id": "A-CHOICE-09",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 9,
+      "questionType": "CHOICE",
+      "content": "使用Iterator时，判断是否存在下一个元素可以使用以下哪个方法（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "next()",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "hashcode()",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "hasPrevious()",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "hasNext()",
+          "correct": true
+        }
+      ],
+      "answer": "D",
+      "score": 2,
+      "knowledgePoint": "集合与迭代器",
+      "test_case": []
+    },
+    {
+      "id": "A-CHOICE-10",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "单项选择题",
+      "number": 10,
+      "questionType": "CHOICE",
+      "content": "下列选项中，哪个类是用来读取文本的字节流（  ）",
+      "options": [
+        {
+          "key": "A",
+          "content": "FileReader",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "FileWriter",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "FileInputStream",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "FileOutputStream",
+          "correct": false
+        }
+      ],
+      "answer": "C",
+      "score": 2,
+      "knowledgePoint": "IO流",
+      "test_case": []
+    },
+    {
+      "id": "A-MULTI-01",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "多项选择题",
+      "number": 1,
+      "questionType": "MULTI_CHOICE",
+      "content": "下列哪些是Java中的基本数据类型？",
+      "options": [
+        {
+          "key": "A",
+          "content": "int",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "String",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "double",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "boolean",
+          "correct": true
+        }
+      ],
+      "answer": "ACD",
+      "score": 2,
+      "knowledgePoint": "基本数据类型",
+      "test_case": []
+    },
+    {
+      "id": "A-MULTI-02",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "多项选择题",
+      "number": 2,
+      "questionType": "MULTI_CHOICE",
+      "content": "面向对象的三个特性是？",
+      "options": [
+        {
+          "key": "A",
+          "content": "封装性",
+          "correct": true
+        },
+        {
+          "key": "B",
+          "content": "继承性",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "抽象性",
+          "correct": false
+        },
+        {
+          "key": "D",
+          "content": "多态性",
+          "correct": true
+        }
+      ],
+      "answer": "ABD",
+      "score": 2,
+      "knowledgePoint": "面向对象特征",
+      "test_case": []
+    },
+    {
+      "id": "A-MULTI-03",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "多项选择题",
+      "number": 3,
+      "questionType": "MULTI_CHOICE",
+      "content": "有A、B、C三个类，以下继承关系正确的是？",
+      "options": [
+        {
+          "key": "A",
+          "content": "class A{}\nclass B{}\nclass C extends A,B{}",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "class A{}\nclass B extends A{}\nclass C extends B{}",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "class A{}\nclass B extends A{}\nclass C extends A{}",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "class A{}\nclass B,C extends A{}",
+          "correct": false
+        }
+      ],
+      "answer": "BC",
+      "score": 2,
+      "knowledgePoint": "继承",
+      "test_case": []
+    },
+    {
+      "id": "A-MULTI-04",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "多项选择题",
+      "number": 4,
+      "questionType": "MULTI_CHOICE",
+      "content": "在Java中，以下关于接口的描述正确的是？",
+      "options": [
+        {
+          "key": "A",
+          "content": "接口中的所有方法不是抽象的",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "接口能被实例化",
+          "correct": false
+        },
+        {
+          "key": "C",
+          "content": "一个类可以实现多个接口",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "接口之间可以相互继承",
+          "correct": true
+        }
+      ],
+      "answer": "CD",
+      "score": 2,
+      "knowledgePoint": "接口",
+      "test_case": []
+    },
+    {
+      "id": "A-MULTI-05",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "多项选择题",
+      "number": 5,
+      "questionType": "MULTI_CHOICE",
+      "content": "以下哪些集合可以保存具有映射关系的数据？",
+      "options": [
+        {
+          "key": "A",
+          "content": "ArrayList",
+          "correct": false
+        },
+        {
+          "key": "B",
+          "content": "TreeMap",
+          "correct": true
+        },
+        {
+          "key": "C",
+          "content": "HashMap",
+          "correct": true
+        },
+        {
+          "key": "D",
+          "content": "TreeSet",
+          "correct": false
+        }
+      ],
+      "answer": "BC",
+      "score": 2,
+      "knowledgePoint": "Map集合",
+      "test_case": []
+    },
+    {
+      "id": "A-FILL-01",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "填空题",
+      "number": 1,
+      "questionType": "FILL_BLANK",
+      "content": "将.Java源文件编译为.class文件的是__________命令。",
+      "options": [],
+      "answer": "javac",
+      "score": 2,
+      "knowledgePoint": "Java编译",
+      "test_case": []
+    },
+    {
+      "id": "A-FILL-02",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "填空题",
+      "number": 2,
+      "questionType": "FILL_BLANK",
+      "content": "Java程序代码必须放在一个类中，类使用__________关键词定义。",
+      "options": [],
+      "answer": "class",
+      "score": 2,
+      "knowledgePoint": "类定义",
+      "test_case": []
+    },
+    {
+      "id": "A-FILL-03",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "填空题",
+      "number": 3,
+      "questionType": "FILL_BLANK",
+      "content": "假设 int x=2，三元表达式 x>0?x+1:5 的结果为__________。",
+      "options": [],
+      "answer": "3",
+      "score": 2,
+      "knowledgePoint": "表达式",
+      "test_case": []
+    },
+    {
+      "id": "A-FILL-04",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "填空题",
+      "number": 4,
+      "questionType": "FILL_BLANK",
+      "content": "一个类如果要实现一个接口，可以通过关键字________来实现这个接口。",
+      "options": [],
+      "answer": "implements",
+      "score": 2,
+      "knowledgePoint": "接口",
+      "test_case": []
+    },
+    {
+      "id": "A-FILL-05",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "填空题",
+      "number": 5,
+      "questionType": "FILL_BLANK",
+      "content": "Java中的I/O流，按照操作文件类型的不同，可分为字节流和__________。",
+      "options": [],
+      "answer": "字符流",
+      "score": 2,
+      "knowledgePoint": "IO流",
+      "test_case": []
+    },
+    {
+      "id": "A-TF-01",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "判断题",
+      "number": 1,
+      "questionType": "TRUE_FALSE",
+      "content": "若 x=5，则表达式 (x+5)/3 的值是3。",
+      "options": [],
+      "answer": "√",
+      "score": 2,
+      "knowledgePoint": "表达式",
+      "test_case": []
+    },
+    {
+      "id": "A-TF-02",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "判断题",
+      "number": 2,
+      "questionType": "TRUE_FALSE",
+      "content": "在Java中，方法的重载和重写都是实现多态性的手段。",
+      "options": [],
+      "answer": "√",
+      "score": 2,
+      "knowledgePoint": "多态",
+      "test_case": []
+    },
+    {
+      "id": "A-TF-03",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "判断题",
+      "number": 3,
+      "questionType": "TRUE_FALSE",
+      "content": "抽象类不一定有抽象方法，有抽象方法的类不一定是抽象类。",
+      "options": [],
+      "answer": "×",
+      "score": 2,
+      "knowledgePoint": "抽象类",
+      "test_case": []
+    },
+    {
+      "id": "A-TF-04",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "判断题",
+      "number": 4,
+      "questionType": "TRUE_FALSE",
+      "content": "在try…catch语句中，try语句块存放可能发生异常的语句。",
+      "options": [],
+      "answer": "√",
+      "score": 2,
+      "knowledgePoint": "异常处理",
+      "test_case": []
+    },
+    {
+      "id": "A-TF-05",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "判断题",
+      "number": 5,
+      "questionType": "TRUE_FALSE",
+      "content": "Set集合是通过键值对的方式来存储对象的。",
+      "options": [],
+      "answer": "×",
+      "score": 2,
+      "knowledgePoint": "集合",
+      "test_case": []
+    },
+    {
+      "id": "A-OUTPUT-01",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "读程序写结果题",
+      "number": 1,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序并写出运行结果：\npublic static void main(String[] args) {\n    int a[]={10,20,30,40,50,60,70,80,90};\n    int s=0;\n    for(int i=0;i<a.length;i++){\n        if(a[i]%3==0){\n            s+=a[i];\n        }\n    }\n    System.out.println(s);\n}",
+      "options": [],
+      "answer": "180",
+      "score": 4,
+      "knowledgePoint": "数组与循环",
+      "test_case": []
+    },
+    {
+      "id": "A-OUTPUT-02",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "读程序写结果题",
+      "number": 2,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序并写出运行结果：\nclass Test {\n    private static String name;\n    static {\n        name = \"World\";\n        System.out.print(name);\n    }\n    public static void main(String[] args) {\n        System.out.print(\"Hello\");\n        Test test = new Test();\n    }\n}",
+      "options": [],
+      "answer": "WorldHello",
+      "score": 4,
+      "knowledgePoint": "静态代码块",
+      "test_case": []
+    },
+    {
+      "id": "A-OUTPUT-03",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "读程序写结果题",
+      "number": 3,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序，写出返回值为 true 的变量名：\nclass Dog {\n    public String name;\n    Dog(String name){ this.name = name; }\n}\npublic class Demo1 {\n    public static void main(String[] args){\n        Dog dog1 = new Dog(\"xiaohuang\");\n        Dog dog2 = new Dog(\"xiaohuang\");\n        String s3 = \"xiaohuang\";\n        String s4 = \"xiaohuang\";\n        boolean result1 = (dog1 == dog2);\n        boolean result2 = (s3 == s4);\n        System.out.println(result1);\n        System.out.println(result2);\n    }\n}",
+      "options": [],
+      "answer": "result2",
+      "score": 4,
+      "knowledgePoint": "对象引用与字符串常量池",
+      "test_case": []
+    },
+    {
+      "id": "A-OUTPUT-04",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "读程序写结果题",
+      "number": 4,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序并写出运行结果：\nclass Demo {\n    public static void main(String[] args){\n        int x = div(1,2);\n        try {\n        } catch(Exception e){\n            System.out.println(e);\n        }\n        System.out.println(x);\n    }\n    public static int div(int a,int b){\n        return a / b;\n    }\n}",
+      "options": [],
+      "answer": "0",
+      "score": 4,
+      "knowledgePoint": "整数除法与异常",
+      "test_case": []
+    },
+    {
+      "id": "A-OUTPUT-05",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "读程序写结果题",
+      "number": 5,
+      "questionType": "FILL_BLANK",
+      "content": "阅读程序并写出运行结果：\npublic static void main(String[] args) {\n    StringBuffer str1 = new StringBuffer(\"abc\");\n    str1.append(\"def\");\n    str1.delete(1,3);\n    System.out.println(str1);\n}",
+      "options": [],
+      "answer": "adef",
+      "score": 4,
+      "knowledgePoint": "StringBuffer",
+      "test_case": []
+    },
+    {
+      "id": "A-SHORT-01",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "简答题",
+      "number": 1,
+      "questionType": "SHORT_ANSWER",
+      "content": "简述面向对象的三大特征。",
+      "options": [],
+      "answer": "面向对象的三大特征是封装性、继承性和多态性。封装强调将对象的属性和行为封装起来，隐藏具体实现细节；继承描述类与类之间的关系，可在不重写原有代码的情况下扩展功能；多态指同一操作作用于不同对象时产生不同行为，Java中常通过方法重写和接口实现体现。",
+      "score": 5,
+      "knowledgePoint": "面向对象特征",
+      "test_case": []
+    },
+    {
+      "id": "A-SHORT-02",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "简答题",
+      "number": 2,
+      "questionType": "SHORT_ANSWER",
+      "content": "简述 try...catch 语句的异常处理流程。",
+      "options": [],
+      "answer": "程序先执行 try 代码块；若无异常则跳过 catch；若发生异常则停止执行 try 中剩余语句并寻找匹配的 catch 块处理异常；可选 finally 块无论是否异常都会执行，常用于资源释放；异常被捕获后继续执行后续代码，未捕获则向上抛出。",
+      "score": 5,
+      "knowledgePoint": "异常处理",
+      "test_case": []
+    },
+    {
+      "id": "A-PROG-01",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "编程题",
+      "number": 1,
+      "questionType": "PROGRAMMING",
+      "content": "编写2个方法：有参方法 getMax() 用来求数组中的最大值，有参方法 getMin() 用来求数组中的最小值。在 main 函数中初始化数组 arr={4,1,6,3,9,8,-2}，调用 getMax() 打印最大值，调用 getMin() 打印最小值。请使用 Java 编写，主类名为 Main。",
+      "options": [],
+      "answer": "参考实现应定义 getMax(int[] arr)、getMin(int[] arr)，遍历数组求最大值和最小值，并输出最大值9和最小值-2。",
+      "score": 10,
+      "knowledgePoint": "数组与方法",
+      "test_case": [
+        {
+          "input": "",
+          "expectedOutput": "9\n-2",
+          "isSample": 1
+        }
+      ]
+    },
+    {
+      "id": "A-PROG-02",
+      "bankId": "a_bank_id",
+      "subjectId": "oo_java",
+      "paper": "A卷",
+      "section": "编程题",
+      "number": 2,
+      "questionType": "PROGRAMMING",
+      "content": "编写程序：定义接口 Shape，包含计算面积 getArea() 方法。创建 Circle 类计算圆面积，半径 double radius；创建 Triangles 类计算三角形面积，边长 double sideA、sideB、sideC；在 Main 类中测试半径为5.0的圆面积和边长为3、4、5的三角形面积。",
+      "options": [],
+      "answer": "参考实现应定义 Shape 接口、Circle 类、Triangles 类，Circle 使用 Math.PI*r*r，Triangles 使用海伦公式。",
+      "score": 10,
+      "knowledgePoint": "接口与多态",
+      "test_case": [
+        {
+          "input": "",
+          "expectedOutput": "半径为5的圆面积: 78.54\n边长为3,4,5的三角形面积: 6.0",
+          "isSample": 1
+        }
+      ]
+    }
+  ]
+}
