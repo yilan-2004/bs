@@ -190,7 +190,9 @@ public class ProblemService extends ServiceImpl<ProblemMapper, Problem> {
                 wrapper.isNull(Problem::getSubjectId);
             }
         }
-        wrapper.orderByDesc(Problem::getCreateTime);
+        // 题目列表按题库和导入顺序展示，避免试卷题倒序显示导致编号从后往前跳。
+        wrapper.orderByAsc(Problem::getBankId)
+                .orderByAsc(Problem::getId);
         return wrapper;
     }
 

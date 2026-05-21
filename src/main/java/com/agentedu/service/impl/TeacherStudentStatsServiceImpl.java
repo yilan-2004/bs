@@ -3,7 +3,9 @@ package com.agentedu.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import com.agentedu.common.PageResult;
 import com.agentedu.dto.TeacherStudentStatsQueryDTO;
+import com.agentedu.entity.User;
 import com.agentedu.exception.BusinessException;
+import com.agentedu.mapper.UserMapper;
 import com.agentedu.service.TeacherStudentStatsService;
 import com.agentedu.utils.RoleAuthUtils;
 import com.agentedu.vo.SubmitRecordVO;
@@ -31,6 +33,8 @@ import java.util.Map;
 public class TeacherStudentStatsServiceImpl implements TeacherStudentStatsService {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
+
+    private final UserMapper userMapper;
 
     @Override
     public TeacherStudentStatsOverviewVO overview() {
@@ -118,6 +122,10 @@ public class TeacherStudentStatsServiceImpl implements TeacherStudentStatsServic
     public TeacherStudentProfileVO profile(Long studentId) {
         RoleAuthUtils.requireTeacher();
         Long teacherId = StpUtil.getLoginIdAsLong();
+        User student = userMapper.selectById(studentId);
+        if (student == null || !"STUDENT".equals(student.getRole())) {
+            throw new BusinessException("学生不存在");
+        }
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("teacherId", teacherId)
                 .addValue("studentId", studentId);
@@ -155,7 +163,20 @@ public class TeacherStudentStatsServiceImpl implements TeacherStudentStatsServic
             return vo;
         });
         if (list.isEmpty()) {
-            throw new BusinessException("该学生暂无当前教师题目的学习数据");
+            TeacherStudentProfileVO vo = new TeacherStudentProfileVO();
+            vo.setStudentId(student.getId());
+            vo.setUsername(student.getUsername());
+            vo.setStudentName(maskName(student.getRealName()));
+            vo.setSubmitCount(0L);
+            vo.setAcceptedCount(0L);
+            vo.setWrongCount(0L);
+            vo.setAccuracyRate(BigDecimal.ZERO);
+            vo.setAiFeedbackCount(0L);
+            vo.setCacheHitCount(0L);
+            vo.setWeakKnowledgeTags(List.of());
+            vo.setErrorTypeDistribution(List.of());
+            vo.setRecentSubmissions(List.of());
+            return vo;
         }
         TeacherStudentProfileVO vo = list.get(0);
         vo.setWeakKnowledgeTags(loadWeakTags(params));

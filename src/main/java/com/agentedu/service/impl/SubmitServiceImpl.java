@@ -27,6 +27,7 @@ import com.agentedu.service.ChoiceEvaluateService;
 import com.agentedu.service.CodeJudgeService;
 import com.agentedu.service.FillBlankEvaluateService;
 import com.agentedu.service.AiCacheService;
+import com.agentedu.service.AiFeedbackService;
 import com.agentedu.service.ShortAnswerEvaluateService;
 import com.agentedu.service.SubmitService;
 import com.agentedu.service.agent.AgentFeedbackResult;
@@ -74,6 +75,8 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
 
     private final AiCacheService aiCacheService;
 
+    private final AiFeedbackService aiFeedbackService;
+
     private final CodeJudgeService codeJudgeService;
 
     private final ChoiceEvaluateService choiceEvaluateService;
@@ -104,10 +107,12 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
             JudgeResult judgeResult = codeJudgeService.judge(record);
             saveCaseResults(record.getId(), judgeResult.getTestCaseResults());
             updateSubmitRecord(record, judgeResult);
+            SubmitResultVO vo = toSubmitResultVO(record, judgeResult.getTestCaseResults());
+            attachProgrammingAiReview(problem, record, vo);
             log.info("Judge finished submitId={}, userId={}, problemId={}, judgeStatus={}, passCount={}, totalCount={}, runTime={}, errorFingerprint={}",
                     record.getId(), record.getUserId(), record.getProblemId(), record.getJudgeStatus(),
                     record.getPassCount(), record.getTotalCount(), record.getRunTime(), record.getErrorFingerprint());
-            return toSubmitResultVO(record, judgeResult.getTestCaseResults());
+            return vo;
         } catch (BusinessException exception) {
             updateFailedSubmitRecord(record, JudgeStatusEnum.SYSTEM_ERROR.name(), exception.getMessage());
             log.warn("Judge business failure submitId={}, userId={}, problemId={}, message={}",
@@ -766,6 +771,18 @@ public class SubmitServiceImpl extends ServiceImpl<SubmitRecordMapper, SubmitRec
         }
         ProblemBank bank = problemBankMapper.selectById(bankId);
         return bank == null ? null : bank.getName();
+    }
+
+    private void attachProgrammingAiReview(Problem problem, SubmitRecord record, SubmitResultVO vo) {
+        if (!QuestionTypeEnum.PROGRAMMING.name().equals(problem.getQuestionType()) && problem.getQuestionType() != null) {
+            return;
+        }
+        try {
+            AiFeedbackVO feedback = aiFeedbackService.getExistingFeedback(record.getId());
+            vo.setAiFeedback(feedback);
+        } catch (BusinessException ignored) {
+            // 编程题没有现成反馈时，不影响本地判题结果。
+        }
     }
 
     private SubmitResultVO toSubmitResultVO(SubmitRecord record, List<TestCaseJudgeResult> caseResults) {

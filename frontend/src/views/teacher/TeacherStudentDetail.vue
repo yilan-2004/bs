@@ -1,8 +1,8 @@
-<template>
+﻿<template>
   <div class="page student-detail-page" v-loading="loading">
     <PageHeader
       title="学生学习详情"
-      subtitle="查看该学生在你创建题目范围内的练习、错误类型和近期提交"
+      subtitle="查看该学生在当前教师题目范围内的练习、错误类型和近期提交"
       eyebrow="Student Profile"
       :icon="User"
     >
